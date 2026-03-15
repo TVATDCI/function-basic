@@ -1,23 +1,45 @@
-/** Task 10: Function onlyNumber */
+// Task 10: Fix the code below so that it returns the expected value
 
-const onlyNumber = function (array) { // Declare a function onlyNumber() that takes an array as an argument.
-  const newArray = []; // Declare a new variable newArray and assign an empty array to it.
-
+/**
+ * 1. Fixed Solution (Manual Loop)
+ */
+const onlyNumbers = function (array) {
+  const arrayResult = [];
   for (let i = 0; i < array.length; i++) {
-    // Use a for loop to iterate through the array argument.
     if (typeof array[i] === "number") {
-      // Use an if statement  with typeof operator to check if the current data type of the array is a number.
-      newArray.push(array[i]); // If the current data type of the array is a number, add the number to the newArray variable.
+      arrayResult.push(array[i]);
     }
   }
-
-  return newArray; // Return the newArray variable.
+  return arrayResult;
 };
 
-console.log(onlyNumber([1, "cat", 3, "dog", 5, "pig", 7, "chicken", 9])); // [1, 3, 5]
-/** How it works?
- * The function onlyNumber() takes an array as an argument and returns a new array, to the newArray variable.
- * The for loop iterates through the array argument. The if statement (uses typeof operator) checks if the current data type of the array is a === number (typeof array[i] === "number").
- * If the current data type of the array is a number, the number is added (.push()) to the newArray variable (newArray.push(array[i])) and returns the newArray variable (return newArray).
- * If the current data type of the array is not a number? too bad! It will increment the loop and check the next index of the array or stop the loop if there is no more index to check.
+/**
+ * 2. Alternative Version (Higher-Order Methods)
+ * More functional & modern: .filter() is the industry standard for this task.
  */
+const onlyNumbersModern = (array) => array.filter(item => typeof item === "number");
+
+/**
+ * 3. Robust Version (Edge Case Handling)
+ * Validates that the input is an array and handles empty or non-array inputs.
+ */
+function onlyNumbersRobust(array) {
+  if (!Array.isArray(array)) return [];
+  return array.filter(item => typeof item === "number" && !isNaN(item));
+}
+
+/**
+ * 4. Level 2 Version (Project Expansion)
+ * Filter only numbers and then sum them up using .reduce().
+ */
+const sumOnlyNumbers = (array) => 
+  onlyNumbersRobust(array).reduce((sum, current) => sum + current, 0);
+
+// Execution
+console.log(onlyNumbers([1, 2, "a", "b", "c", 3])); // [1, 2, 3]
+
+// Automated Unit Tests
+console.assert(JSON.stringify(onlyNumbers([1, "a", 2])) === "[1,2]", "Test Failed: basic filtering");
+console.assert(JSON.stringify(onlyNumbersModern(["x", 10, "y"])) === "[10]", "Test Failed: modern filtering");
+console.assert(JSON.stringify(onlyNumbersRobust(null)) === "[]", "Test Failed: robust null input");
+console.assert(sumOnlyNumbers([1, "a", 2, 3]) === 6, "Test Failed: sumOnlyNumbers result should be 6");
