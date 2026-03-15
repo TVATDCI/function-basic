@@ -1,33 +1,45 @@
+// Task 03: Complete the code below so that the right result is shown in the console
+
 /**
- * Task 03:
- * getNumberUntill with for loop!
+ * 1. Fixed Solution (Standard For Loop)
  */
-
-function getNumberUntil(number) {
-    const numbers = []; // create an empty array to store the numbers
-
-    for (let i = 0; i < number; i++) { // for loop to iterate through the numbers from 0 to the number argument...
-        numbers.push(i); // (i) is the number that is being iterated and stored(return) in the numbers array with .push() method. It means add the value of (i) to the end of the array.
+function getNumbersUntil(number) {
+    const list = [];
+    for (let i = 0; i < number; i++) {
+        list.push(i);
     }
-
-    return numbers; // return the numbers array
+    return list;
 }
-const list1 = getNumberUntil(5);
-const list2 = getNumberUntil(10);
-const list3 = getNumberUntil(15);
-// you can add whatever variable you want to store the result of the function getNumberUntil. The function will return the numbers from 0 to the number argument and store in the variable.
-console.log(list1); // [0, 1, 2, 3, 4]
-console.log(list2); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-console.log(list3); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] but until only 14 (i < number)
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// let's try it with another example with different variable names but still uses the same function getNumberUntil with for loop!
-const numberX = 5;
-const numberY = 10;
-const numberZ = 15;
-const listX = getNumberUntil(numberX);
-const listY = getNumberUntil(numberY);
-const listZ = getNumberUntil(numberZ);
-console.log(listX); // [0, 1, 2, 3, 4]
-console.log(listY); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-console.log(listZ); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] 
+/**
+ * 2. Alternative Version (Higher-Order Methods)
+ * More functional & modern: Array.from is concise and avoids manual loops.
+ */
+const getNumbersUntilModern = (number) => Array.from({ length: number }, (_, i) => i);
+
+/**
+ * 3. Robust Version (Edge Case Handling)
+ * Handles negative numbers and non-integer inputs correctly.
+ */
+function getNumbersUntilRobust(number) {
+    if (typeof number !== "number" || number < 0) return [];
+    return Array.from({ length: Math.floor(number) }, (_, i) => i);
+}
+
+/**
+ * 4. Level 2 Version (Project Expansion)
+ * Adds the ability to specify start, stop, and step.
+ */
+const getRange = (start, stop, step = 1) => {
+    return Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step));
+};
+
+// Execution
+console.log(getNumbersUntil(10)); // [0, 1, 2, ..., 9]
+
+// Automated Unit Tests
+const list3 = getNumbersUntil(3);
+console.assert(JSON.stringify(list3) === "[0,1,2]", `Test Failed: expected [0,1,2], got ${JSON.stringify(list3)}`);
+console.assert(JSON.stringify(getNumbersUntilModern(2)) === "[0,1]", "Test Failed: Modern version");
+console.assert(JSON.stringify(getNumbersUntilRobust(-5)) === "[]", "Test Failed: Negative numbers");
+console.assert(JSON.stringify(getRange(5, 10, 2)) === "[5,7,9]", "Test Failed: Range with step 2");
