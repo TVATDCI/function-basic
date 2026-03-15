@@ -1,19 +1,47 @@
+// Task 02: Fix and complete the code below so that the right result is printed on the console
+
+/**
+ * 1. Fixed Solution (Standard Function Declaration)
+ */
 function isEven(number) {
   return number % 2 === 0;
 }
 
-console.log(isEven(2)); // 2 is the argument of the function isEven. Which store in (number) parameter. The function will return true because 2 % 2 === 0
-console.log(isEven(3)); // 3 is the argument of the function isEven. Which store in (number) parameter. The function will return false because 3 % 2 !== 0
-// you can add whatever (number) you want as an argument to the function isEven. The number will then be stored in the (number) parameter and divided by 2(return number % 2 === 0) and return true if the number is even and false if the number is odd.
+/**
+ * 2. Refactored Version (ES6 Arrow Function)
+ * Professional & Concise: One-liner with implicit return.
+ */
+const isEvenArrow = (number) => number % 2 === 0;
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// let's create a function that takes a number as an argument and returns a string that says whether the number is even or odd.
-function isEvenOrOdd(number) {
-  if (number % 2 === 0) {
-    return 'even';
-  } else {
-    return 'odd';
+/**
+ * 3. Robust Version (Edge Case Handling)
+ * Validates that the input is a number and handles null/undefined.
+ */
+function isEvenRobust(number) {
+  if (typeof number !== "number" || isNaN(number)) {
+    console.error("Input must be a valid number.");
+    return false;
   }
+  return number % 2 === 0;
 }
 
-console.log(isEvenOrOdd(7)); // 2 is the argument of the function isEvenOrOdd. Which store in (number) parameter. With if else statement, the function will return as string 'even' or 'odd' based on the number argument. The idea is to check if the number is even or odd. And most important is to return as 'string' not as a boolean like the above function.
+/**
+ * 4. Level 2 Version (Project Expansion)
+ * Generalizes the logic to check divisibility by any divisor.
+ */
+const isDivisibleBy = (number, divisor) => {
+  if (divisor === 0) return false;
+  return number % divisor === 0;
+};
+
+// Execution
+console.log(isEven(2)); // true
+console.log(isEven(9)); // false
+console.log(isEven(20)); // true
+
+// Automated Unit Tests
+console.assert(isEven(2) === true, "Test Failed: 2 is even");
+console.assert(isEven(3) === false, "Test Failed: 3 is odd");
+console.assert(isEvenRobust(null) === false, "Test Failed: Should handle null input");
+console.assert(isDivisibleBy(12, 3) === true, "Test Failed: 12 is divisible by 3");
+console.assert(isDivisibleBy(12, 5) === false, "Test Failed: 12 is not divisible by 5");
