@@ -40,7 +40,10 @@ console.log(isDivisibleBy(4, 2)); // true
 console.log(isDivisibleBy(9, 2)); // false
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger robust checks to verify validation logic.
 console.assert(isDivisibleBy(12, 3) === true, "Test Failed: 12 is divisible by 3");
 console.assert(isDivisibleByArrow(10, 3) === false, "Test Failed: 10 not divisible by 3");
+
+// The following test triggers a robust check to confirm validation:
 console.assert(isDivisibleByRobust(10, 0) === false, "Test Failed: division by zero");
 console.assert(JSON.stringify(getDivisors(6)) === "[1,2,3,6]", "Test Failed: divisors of 6");

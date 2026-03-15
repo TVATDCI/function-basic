@@ -19,7 +19,10 @@ const capitalizeArrow = (string) => `${string.charAt(0).toUpperCase()}${string.s
  * Handles empty strings, non-string inputs, and null/undefined.
  */
 function capitalizeRobust(string) {
-  if (typeof string !== "string" || string.length === 0) return "";
+  if (typeof string !== "string" || string.length === 0) {
+    console.error("[Validation Error] Input must be a non-empty string.");
+    return "";
+  }
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
@@ -36,7 +39,10 @@ console.log(capitalize("cat"));   // Cat
 console.log(capitalize("hello")); // Hello
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger console.error to verify validation logic.
 console.assert(capitalize("cat") === "Cat", "Test Failed: basic capitalize");
 console.assert(capitalizeArrow("hello") === "Hello", "Test Failed: arrow capitalize");
 console.assert(capitalizeRobust("hELLO") === "Hello", "Test Failed: robust case correction");
+// The following test triggers a console error to confirm robustness:
+console.assert(capitalizeRobust(null) === "", "Test Failed: robust null input");
 console.assert(capitalizeWords("hello world") === "Hello World", "Test Failed: capitalize sentence");

@@ -20,7 +20,7 @@ const doubleArrow = (number) => number * 2;
 function doubleRobust(number) {
     const parsed = Number(number);
     if (isNaN(parsed)) {
-        console.error("Input must be a numeric value.");
+        console.error("[Validation Error] Input must be a numeric value.");
         return 0;
     }
     return parsed * 2;
@@ -36,7 +36,10 @@ const multiplyBy = (number, factor) => number * factor;
 console.log(double(9)); // 18
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger console.error to verify validation logic.
 console.assert(double(9) === 18, "Test Failed: double(9)");
 console.assert(doubleArrow(10) === 20, "Test Failed: doubleArrow(10)");
 console.assert(doubleRobust("5") === 10, "Test Failed: doubleRobust string parsing");
+// The following test triggers a console error to confirm robustness:
+console.assert(doubleRobust("abc") === 0, "Test Failed: doubleRobust invalid input");
 console.assert(multiplyBy(4, 5) === 20, "Test Failed: multiplyBy(4, 5)");

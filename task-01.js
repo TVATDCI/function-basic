@@ -21,7 +21,7 @@ const addArrow = (a, b) => a + b;
  */
 function addRobust(a, b) {
   if (typeof a !== "number" || typeof b !== "number") {
-    console.error("Invalid input: arguments must be numbers.");
+    console.error("[Validation Error] Invalid input: arguments must be numbers.");
     return null;
   }
   return a + b;
@@ -39,7 +39,9 @@ function addAll(...numbers) {
 console.log("Task 01 Result:", add(2, 5));
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger console.error to verify validation logic.
 console.assert(add(2, 5) === 7, "Test Failed: 2 + 5 should be 7");
 console.assert(addArrow(10, 20) === 30, "Test Failed: Arrow function 10 + 20");
+// The following test triggers a console error to confirm robustness:
 console.assert(addRobust("2", 5) === null, "Test Failed: Should handle non-number strings");
 console.assert(addAll(1, 2, 3, 4) === 10, "Test Failed: addAll sum 1,2,3,4");

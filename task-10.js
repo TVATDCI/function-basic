@@ -39,7 +39,10 @@ const sumOnlyNumbers = (array) =>
 console.log(onlyNumbers([1, 2, "a", "b", "c", 3])); // [1, 2, 3]
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger robust checks to verify validation logic.
 console.assert(JSON.stringify(onlyNumbers([1, "a", 2])) === "[1,2]", "Test Failed: basic filtering");
 console.assert(JSON.stringify(onlyNumbersModern(["x", 10, "y"])) === "[10]", "Test Failed: modern filtering");
+
+// The following test triggers a robust check to confirm validation:
 console.assert(JSON.stringify(onlyNumbersRobust(null)) === "[]", "Test Failed: robust null input");
 console.assert(sumOnlyNumbers([1, "a", 2, 3]) === 6, "Test Failed: sumOnlyNumbers result should be 6");

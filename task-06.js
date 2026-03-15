@@ -19,7 +19,7 @@ function haveEqualLengthStandard(s1, s2) {
  */
 function haveEqualLengthRobust(s1, s2) {
   if (typeof s1 !== "string" || typeof s2 !== "string") {
-    console.error("Both arguments must be strings.");
+    console.error("[Validation Error] Both arguments must be strings.");
     return false;
   }
   return s1.length === s2.length;
@@ -39,8 +39,10 @@ const allHaveEqualLength = (...strings) => {
 console.log(haveEqualLength("cat", "dog")); // true
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger console.error to verify validation logic.
 console.assert(haveEqualLength("cat", "dog") === true, "Test Failed: cat, dog");
 console.assert(haveEqualLength("house", "bookshelf") === false, "Test Failed: house, bookshelf");
+// The following test triggers a console error to confirm robustness:
 console.assert(haveEqualLengthRobust(123, "123") === false, "Test Failed: number, string");
 console.assert(allHaveEqualLength("cat", "dog", "pen") === true, "Test Failed: multi-string match");
 console.assert(allHaveEqualLength("cat", "house", "pen") === false, "Test Failed: multi-string mismatch");

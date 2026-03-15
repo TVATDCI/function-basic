@@ -27,6 +27,7 @@ const letterReplacerModern = (string, target, replaceWith) => string.split(targe
  */
 function letterReplacerRobust(string, target, replaceWith) {
   if (typeof string !== "string" || typeof target !== "string" || typeof replaceWith !== "string") {
+    console.error("[Validation Error] All arguments must be strings.");
     return string;
   }
   return string.replaceAll(target, replaceWith);
@@ -48,7 +49,9 @@ function multiReplacer(string, replacements) {
 console.log(letterReplacer("cat", "c", "b")); // bat
 
 // Automated Unit Tests
+// Note: Some tests below will intentionally trigger console.error to verify validation logic.
 console.assert(letterReplacer("ooo", "o", "i") === "iii", "Test Failed: ooo replacement");
 console.assert(letterReplacerModern("house", "h", "m") === "mouse", "Test Failed: house replacement");
+// The following test triggers a console error to confirm robustness:
 console.assert(letterReplacerRobust("abc", 1, "x") === "abc", "Test Failed: invalid types");
 console.assert(multiReplacer("hello world", { "h": "j", "o": "0" }) === "jell0 w0rld", "Test Failed: multi-replacer");
