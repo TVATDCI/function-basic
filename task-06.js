@@ -1,23 +1,46 @@
-/**
- * Task 06:
- * Build a function that takes a string as an argument and returns the number of characters in that string.
- * Use .length property to count the number of characters in the following string to compare the result with the length of the string. In this task to find if the length is equal to the number of characters in the string? === strict equality operator is used to compare both values and data types (string and number).
- */
+// Task 06: Fix the code below so that it prints the right values to the console
 
-function equalLength(string1, string2) {
-  return string1.length === string2.length;
+/**
+ * 1. Fixed Solution (Arrow Function Declaration)
+ */
+const haveEqualLength = (string1, string2) => string1.length === string2.length;
+
+/**
+ * 2. Refactored Version (Standard Function)
+ * For clarity in more complex logic cases.
+ */
+function haveEqualLengthStandard(s1, s2) {
+  return s1.length === s2.length;
 }
 
-console.log(equalLength("cat", "dog")); // true
-console.log(equalLength("house", "building")); // false
-console.log(equalLength("JavaScript", "Python")); // true
-console.log(equalLength("hello", "world")); // false
-///////////////////////////////////////////////
-// The differences between == loose equality operator and === strict equality operator!!!
-// The == loose equality operator compares only the values of the variables, not the data types.
-// The === strict equality operator compares both the values and the data types of the variables.
-// Example:
-const x = 5; // number. value = 5
-const y = "5"; // string. value = 5
-console.log(x == y); // true
-console.log(x === y); // false
+/**
+ * 3. Robust Version (Edge Case Handling)
+ * Validates that both arguments are strings.
+ */
+function haveEqualLengthRobust(s1, s2) {
+  if (typeof s1 !== "string" || typeof s2 !== "string") {
+    console.error("Both arguments must be strings.");
+    return false;
+  }
+  return s1.length === s2.length;
+}
+
+/**
+ * 4. Level 2 Version (Project Expansion)
+ * Checks if multiple strings all have the same length.
+ */
+const allHaveEqualLength = (...strings) => {
+  if (strings.length < 2) return true;
+  const targetLength = strings[0].length;
+  return strings.every(s => s.length === targetLength);
+};
+
+// Execution
+console.log(haveEqualLength("cat", "dog")); // true
+
+// Automated Unit Tests
+console.assert(haveEqualLength("cat", "dog") === true, "Test Failed: cat, dog");
+console.assert(haveEqualLength("house", "bookshelf") === false, "Test Failed: house, bookshelf");
+console.assert(haveEqualLengthRobust(123, "123") === false, "Test Failed: number, string");
+console.assert(allHaveEqualLength("cat", "dog", "pen") === true, "Test Failed: multi-string match");
+console.assert(allHaveEqualLength("cat", "house", "pen") === false, "Test Failed: multi-string mismatch");
